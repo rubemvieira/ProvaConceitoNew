@@ -1,0 +1,87 @@
+﻿@model ProvaConceito.FrontEnd.Models.ProfessorViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edição</h1>
+
+<h4>Professor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProfessorId" class="control-label"></label>
+                <input asp-for="ProfessorId" class="form-control" readonly />
+                <span asp-validation-for="ProfessorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Materia" class="control-label"></label>
+                <select asp-for="Materia" class="form-control">
+                    <option selected value="">Selecione</option>
+                    <option value="Matematica">Matemática</option>
+                    <option value="Portugues">Português</option>
+                    <option value="Fisica">Física</option>
+                </select>
+                <span asp-validation-for="Materia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Alunos disponíveis</label>
+                <select asp-for="Turmas" asp-items="@ViewBag.Turmas" multiple="multiple" class="form-control">
+                </select>
+            </div>
+            <div class="form-group">
+                <h5>Turmas do Professor</h5>
+                <table class="table">
+                    
+                    <thead>
+                        <tr>
+                            <th>
+                                Código
+                            </th>
+                            <th>
+                                Escola / Turma
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Turmas)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(modelItem => item.TurmaId)
+                                    @Html.DisplayFor(modelItem => item.TurmaId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Turma.Escola.Nome) / @Html.DisplayFor(modelItem => item.Turma.Descricao)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Excluir", "DeleteTurma", new { ProfessorId = item.ProfessorId, Alunoid = item.TurmaId })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar Alterações" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

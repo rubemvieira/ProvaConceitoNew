@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProvaConceito.FrontEnd.Models.TurmaViewModel>
+
+@{
+    ViewData["Title"] = "Turmas";
+}
+
+<h1>Relação de Turmas</h1>
+
+<p>
+    <a asp-action="Create">Adicionar</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TurmaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TurmaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new {  id = item.TurmaId  }) |
+                @Html.ActionLink("Detalhes", "Details", new {  id = item.TurmaId }) |
+                @Html.ActionLink("Excluir", "Delete", new {  id = item.TurmaId },
+new { onclick = "return confirm('Deseja realmente deletar esta turma ?');" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

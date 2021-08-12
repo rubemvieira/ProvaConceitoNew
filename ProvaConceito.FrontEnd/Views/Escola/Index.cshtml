@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ProvaConceito.FrontEnd.Models.EscolaViewModel>
+
+@{
+    ViewData["Title"] = "Escolas";
+}
+
+<h1>Relação de Escolas</h1>
+
+<p>
+    <a asp-action="Create">Adicionar</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EscolaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoINEP)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EscolaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoINEP)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new {  id = item.EscolaId  }) |
+                @Html.ActionLink("Detalhes", "Details", new {  id = item.EscolaId }) |
+                @Html.ActionLink("Excluir", "Delete", new {  id = item.EscolaId },
+new { onclick = "return confirm('Deseja realmente deletar esta escola ?');" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

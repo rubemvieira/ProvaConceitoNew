@@ -1,0 +1,68 @@
+﻿@model ProvaConceito.FrontEnd.Models.ProfessorViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Professor</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProfessorId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProfessorId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Materia)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Materia)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Turmas)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>
+                            Código
+                        </th>
+                        <th>
+                            Escola / Aluno
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Turmas)
+                    {
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(modelItem => item.TurmaId)
+                                @Html.DisplayFor(modelItem => item.TurmaId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Turma.Escola.Nome) / @Html.DisplayFor(modelItem => item.Turma.Descricao)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ProfessorId }) |
+    <a asp-action="Index">Voltar</a>
+</div>
